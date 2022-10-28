@@ -1,20 +1,5 @@
-import { useRouter } from "next/router";
 import React from "react";
-import { useState, useEffect } from "react";
-
-const slug = () => {
-  const [data, setData] = useState();
-  const router = useRouter();
-  const { slug } = router.query;
-  const fetchPost = async () => {
-    let data = await fetch(`http://localhost:3000/api/blog?slug=${slug}`);
-    let result = await data.json();
-    setData(result);
-  };
-  useEffect(() => {
-    if (!router.isReady) return;
-    fetchPost();
-  }, [router.isReady]);
+const slug = ({ data }) => {
   return (
     <div className="container w-50 my-4">
       <p>Title : {data?.title}</p>
@@ -25,3 +10,14 @@ const slug = () => {
 };
 
 export default slug;
+
+export async function getServerSideProps(context) {
+  // Fetch data from external API
+  const res = await fetch(
+    `http://localhost:3000/api/blog?slug=${context.query.slug}`
+  );
+  const data = await res.json();
+
+  // Pass data to the page via props
+  return { props: { data } };
+}

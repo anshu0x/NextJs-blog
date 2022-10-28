@@ -1,20 +1,10 @@
 import Link from "next/link";
 import React from "react";
-import { useEffect, useState } from "react";
 
-const blog = () => {
-  let [blogdata, setBlogdata] = useState([]);
-  const fetchPosts = async () => {
-    let data = await fetch("http://localhost:3000/api/blogs");
-    let result = await data.json();
-    setBlogdata(result);
-  };
-  useEffect(() => {
-    fetchPosts();
-  }, []);
+const blog = ({ data }) => {
   return (
     <div className="container my-4 w-75  justify-content-between">
-      {blogdata.map((item, index) => {
+      {data.map((item, index) => {
         return (
           <Link href={`blog/${item.slug}`}>
             <div key={index}>
@@ -29,3 +19,12 @@ const blog = () => {
 };
 
 export default blog;
+
+export async function getServerSideProps() {
+  // Fetch data from external API
+  const res = await fetch(`http://localhost:3000/api/blogs`);
+  const data = await res.json();
+
+  // Pass data to the page via props
+  return { props: { data } };
+}
