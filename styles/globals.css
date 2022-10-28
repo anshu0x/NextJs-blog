@@ -1,8 +1,9 @@
 nav a {
   color: white;
+}
+a {
   text-decoration: none;
 }
-
 * {
   box-sizing: border-box;
   margin: 0;

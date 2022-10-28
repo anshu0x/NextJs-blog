@@ -6,12 +6,12 @@ const blog = ({ data }) => {
     <div className="container my-4 w-75  justify-content-between">
       {data.map((item, index) => {
         return (
-          <Link href={`blog/${item.slug}`}>
-            <div key={index}>
+          <div key={index}>
+            <Link href={`blog/${item.slug}`}>
               <h2>{item.title}</h2>
-              <p>{item.content.slice(0, 80)}</p>
-            </div>
-          </Link>
+            </Link>
+            <p>{item.content.slice(0, 80)}</p>
+          </div>
         );
       })}
     </div>
