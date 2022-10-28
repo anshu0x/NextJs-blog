@@ -20,6 +20,9 @@ function BasicExample() {
               <Link className="mx-3" href="/blog">
                 Blog
               </Link>
+              <Link className="mx-3" href="/contact">
+                Contact
+              </Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
